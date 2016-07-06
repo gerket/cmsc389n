@@ -36,13 +36,13 @@
 			if ($num_rows === 0) {
 				$body .= "You Are Not Enrolled In Any Classes!<br />";
 			} else {
-				$body.="<h2>Course Webpages</h2><br/>";
+				$body.="<h1>Course Webpages</h1><br/>";
 				//$body .= "<form action=''>";
 				for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 					$result->data_seek($row_index);
 					$row = $result->fetch_array(MYSQLI_ASSOC);
 					$class = $row['class'];
-					$body.= "<a  href='{$class}.php'>$class Webpage </a><br /><br />";
+					$body.= "<a id='classLinks' href='{$class}.php'>$class Webpage </a><br /><br />";
 					//echo "Name: {$row['name']}, Id: {$row['id']} <br>";
 				}
 				//$body .= "</form>";
@@ -53,7 +53,7 @@
 	
 	
 	//session_destroy();
-	echo generatePageWithTop($body,$title);//,"mainClassSelection.css");
+	echo generatePageWithTop($body,$title,"mainClassSelection.css");
 	
 function referenceToPage($classTo){
 	$_SESSION['currClass'] = $classTo;

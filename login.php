@@ -63,7 +63,7 @@
 EOBODY;
 	$body = $topPart.$body;
 	
-	$page = generatePageMac($body,NULL,"login.css");
+	$page = generatePageMac($body,"Students Connect Login","login.css");
 	echo $page;
 	//session_destroy();
 ?>
