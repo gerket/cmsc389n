@@ -1,29 +1,34 @@
-<!doctype html>
-<html>
-    <head> 
-        <meta charset=UTF-8" /> 
-		<title>CMSC389N</title>
-        <link rel="stylesheet" href="classPage.css" />
-		<script src="classPage.js"></script>
-	</head>
-</html>
+
 
 <?php
     require_once("support.php");
+	require_once("dbLogin.php");
     session_start();
-
+	
+	
+	
+	$styleSheet = "classPage.css";
     $body = "";
     $mtable = "";
     $newid;
 
-    $host = "127.0.0.1";
-    $user = "root";
-    $password = "";
-    $database = "groupproject";
+	if(isset($_SESSION['currClass'])){
+		$title = $_SESSION['currClass'];
+	} else {
+		$title = "CMSC389N";
+	}
+	
+	//if(isset($_SESSION['username'])){
+		$username = $_SESSION['username'];
+
+    //$host = "127.0.0.1";
+    //$user = "root";
+    //$password = "";
+    //$database = "groupproject";
 
     $db = connectToDB($host, $user, $password, $database);
 
-    $query = "select * from messages where class = 'CMSC389N'"; 
+    $query = "select * from messages where class = '$title'"; 
     $q2 = "select * from users"; 
 
     $result = $db->query($query);
@@ -65,8 +70,8 @@
 
 
     if(isset($_POST["submitbutton"])) {
-        $curruser = "joe";//$_SESSION['username']; may need to change based on what the session var is actually stored as 
-        $currclass = "CMSC389N";
+        $curruser = $_SESSION['username']; //may need to change based on what the session var is actually stored as 
+        $currclass = $title;
         //$ftype = $_FILES['filename']['type'];
 
         $poop = $_POST["yourmessage"];
@@ -102,7 +107,7 @@
     $scriptName = $_SERVER["PHP_SELF"];
     $topPart = <<<EOBODY
         <form action="$scriptName" method="post">
-            <h1><u>CMSC389N</u></h1> 
+            <h1><u>$title</u></h1> 
             <br/>
 
             $mtable
@@ -122,7 +127,7 @@ EOBODY;
 
     $body = $topPart.$body; 
     
-    $page = generatePage($body);
+    $page = generatePageWithTop($body,$title,$styleSheet);
 
     echo $page;        
 ?>

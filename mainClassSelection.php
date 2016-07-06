@@ -49,9 +49,15 @@
 			}
 		}
 		
-	
+
 	
 	
 	//session_destroy();
-	echo generatePageWithTop($body,$title,"mainClassSelection.css");
+	echo generatePageWithTop($body,$title);//,"mainClassSelection.css");
+	
+function referenceToPage($classTo){
+	$_SESSION['currClass'] = $classTo;
+	header("Location: CMSC389N.php");
+
+}
 ?>

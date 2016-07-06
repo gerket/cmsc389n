@@ -1,15 +1,7 @@
-<!doctype html>
-<html>
-    <head> 
-        <meta charset=UTF-8" /> 
-		<title>CMSC389N</title>
-        <link rel="stylesheet" href="classPage.css" />
-		<script src="classPage.js"></script>
-	</head>
-</html>
 
 <?php
 	require_once("support.php");
+	require_once("dbLogin.php");
 	session_start();
 
 	$scriptName = $_SERVER["PHP_SELF"];
@@ -20,11 +12,11 @@
 
             <h3><strong>Message successfully posted! </strong></h3>
 
-			<p id = "backbutton"> <input type=button onClick="parent.location='CMSC389N.php'" value='Go back'> </p>
+			<p id = "backbutton"> <input type=button onClick="parent.location='CMSC389N.php'" value='Back To Class Page'> </p>
 		</form>		
 EOBODY;
 
-	$page = generatePage($topPart);
+	$page = generatePageWithTop($topPart,"CMSC389N","classPage.css");
 
 	echo $page;
 ?>

@@ -17,7 +17,7 @@ EOPAGE;
     return $page;
 }
 
-function generatePageMac($body, $title="Students Connect", $styleSheetName="login.css") {
+function generatePageMac($body, $title="Students Connect", $styleSheetName="default.css") {
     $page = <<<EOPAGE
 <!doctype html>
 <html>
@@ -36,7 +36,7 @@ EOPAGE;
 }
 
 
-function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheetName="") {
+function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheetName="default.css") {
     global $host, $user, $password, $database;
     //session_start();
     
@@ -90,7 +90,7 @@ function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheet
 				}
 				$body .= "</tbody></table>";
 				
-				$body.="<h2 align='center'>$title</h2>";
+				//$body.="<h2 align='center'>$title</h2>";
 			}
 		}
     
