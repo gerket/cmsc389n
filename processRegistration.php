@@ -34,5 +34,4 @@
         $_SESSION['user'] = $username;
         header("Location: login.php");
     }
-    session_destroy();
 ?>
