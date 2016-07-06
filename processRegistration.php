@@ -41,5 +41,8 @@
         $_SESSION['username'] = $username;
         header("Location: mainClassSelection.php");
     }
+<<<<<<< HEAD
+=======
     //session_destroy();
+>>>>>>> refs/remotes/origin/bringingTogether
 ?>
