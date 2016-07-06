@@ -124,11 +124,11 @@
 		$body .= "<tr>";
 		
 		
-		$body.= "<td>";
+		$body.= "<td align='center'><br/>";
 		
-		$body .= '<img src="data:image/jpeg;base64,'.base64_encode($pic).'" height="300"/></br></br>';
-		$body .= "<strong>Username: </strong>$username</br>";
-		$body .= " <strong>My Classes</strong>";
+		$body .= '<img align="center" src="data:image/jpeg;base64,'.base64_encode($pic).'" height="300"/></td></tr><tr><td></br></br>';
+		$body .= "<strong>Username: </strong>$username</br><br/>";
+		$body .= " <strong>My Classes: </strong>";
 		$body .= "<ul>";
 		
 		foreach($classes as $class1){
@@ -143,7 +143,7 @@
 		$body .= "<strong>Bio: </strong>$bio</br></br>";
 	
 		$body.= '<form action="userProfile.php"method="post">';
-		$body.= '<center><input type="submit"  value= "Update Profile" name= "update"/></center>';
+		$body.= '<center><input type="submit"  value= "Update My Profile" name= "update"/><br/></center>';
 		$body.= "</form>";
 		
 		$body .= "</td>";

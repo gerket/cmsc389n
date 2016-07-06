@@ -29,10 +29,10 @@
     $db = connectToDB($host, $user, $password, $database);
 
     $query = "select * from messages where class = '$title'"; 
-    $q2 = "select * from users"; 
+    
 
     $result = $db->query($query);
-    $r2 = $db->query($q2);
+   
 
     if (!$result) {
         die("Retrieval failed: ". $db->error);
@@ -41,7 +41,7 @@
         $numberOfRows = mysqli_num_rows($result);
 
         if ($numberOfRows == 0) {
-            $body .= "<h2>No messages in this discussion</h2>";
+            $mtable = "<h2>No messages in this discussion</h2>";
 
         } 
         else {
@@ -50,23 +50,24 @@
 
             while ($mArray = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 $id = $mArray['id'];
-                $username = $mArray['username'];
+                $usernameM = $mArray['username'];
                 $message = $mArray['message'];
-
-                $mtable .= "<tr><td><br/><br/>#$id $username<br/><br/><br/></td> <td><br/><br/>$message<br/><br/><br/></td></tr>"; //profile pic?????
+				
+				$q2 = "select username,pic from users where username='$usernameM'";
+				$r2 = $db->query($q2);
+				$row = $r2->fetch_array(MYSQLI_ASSOC);
+                $pic = $row['pic'];
+                $realPic = base64_encode($pic);
+				
+				$mtable.="<tr ><td align='center'>Message #$id<br/><br/>";
+				$mtable.= "<table><tr><td numrows=2><img alt='User Image' height=80px  src=\"data:image/jpeg;base64,$realPic\"/></td>";
+                $mtable .= " <td>$usernameM</td></tr></table></td>" . "<td align='center'><br/>$message<br/></td></tr>"; 
             }
-
             $mtable .= "</table>";
         }
     }
 
     $result->close();
-
-
-
-
-
-
 
 
     if(isset($_POST["submitbutton"])) {

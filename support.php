@@ -84,7 +84,7 @@ function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheet
                     $pic = $row['pic'];
                     $realPic = base64_encode($pic);
                     	
-					$body.= "<tr><td rowspan=2><img alt='User Image' height=80px  src=\"data:image/jpeg;base64,$realPic\"/></td><td>Welcome, <a href='userProfile.php'>$student</a>!</td></tr>";
+					$body.= "<tr><td rowspan=2><img alt='User Image' height=80px  onclick='window.location.href=\"userProfile.php\";' src=\"data:image/jpeg;base64,$realPic\"/></td><td>Welcome, <a href='userProfile.php'>$student</a>!</td></tr>";
                     $body.= "<tr><td align='center'><input type='button' value='Log out' onclick='window.location.href=\"login.php\";' /></td></tr>";
 					//echo "Name: {$row['name']}, Id: {$row['id']} <br>";
 				}
