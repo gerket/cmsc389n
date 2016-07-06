@@ -1,18 +1,43 @@
 <?php
 	require_once("support.php");
+	session_start();
+	$host = "localhost";
+    $user = "root";
+    $password = "";
+    $database = "groupproject";
+	/* Connecting to the database */		
+	$db_connection = new mysqli($host, $user, $password, $database);
+	if ($db_connection->connect_error) {
+		die($db_connection->connect_error);
+	}
 	
 	$scriptName = "";
 	$body = "";
+	
 	if (isset($_POST["submit"])) {
 		$nameValue = trim($_POST["name"]);
-		$passwordValue = trim($_POST["password"]);
+		$passwordValue = $_POST["password"];
 		
-		if ($nameValue === "" || ($nameValue !== "cmsc298s") || $passwordValue === "" || ($passwordValue !== "terps")) 
+		$query = "SELECT password FROM users WHERE username='".($nameValue).("'");
+		$result = $db_connection->query($query);
+		$passval = $result->fetch_assoc();
+		print ($passwordValue).("<br />");
+		print ($passval["password"]).("WOW<br />");
+			
+		if ($nameValue === "" || $passwordValue === "" || $passval["password"] === "" || $passval["password"] !== $passwordValue){ 
 			$body .= "<br /><strong>Invalid login information provided.</strong><br />";
             $passwordValue = "";
             $nameValue = "";
             $scriptName = $_SERVER["PHP_SELF"];
+		}else if (!$result) {
+			die("Retrieval failed: " . $db_connection->error);
+			$body .= "<br /><strong>Invalid login information provided.</strong><br />";
+            $passwordValue = "";
+            $nameValue = "";
+            $scriptName = $_SERVER["PHP_SELF"];
+		} 
 		if ($body == "") {
+			$_SESSION["username"] = $nameValue;
             header("Location: main.php");
 		}
 	} else {
@@ -39,4 +64,5 @@ EOBODY;
 	
 	$page = generatePage($body);
 	echo $page;
+	session_destroy();
 ?>
