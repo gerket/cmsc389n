@@ -1,0 +1,16 @@
+html {
+    text-align: center;
+    background: #F5F5DC;
+}
+
+#books {
+	margin-left: 2em;
+    -moz-box-shadow: 3em 3em 10em rgba(0, 0, 0, .5);
+    -webkit-box-shadow: rgba(0,0,0,.5) 3em 3em 10em;
+}
+
+#general {
+    box-shadow: 0 0 0 1px black;
+    padding:8px;
+    border-radius: 25px;
+}
