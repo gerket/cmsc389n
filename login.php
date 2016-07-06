@@ -38,7 +38,7 @@
 		} 
 		if ($body == "") {
 			$_SESSION["username"] = $nameValue;
-            header("Location: main.php");
+            header("Location: mainclassselection.php");
 		}
 	} else {
 		$nameValue = "";
