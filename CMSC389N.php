@@ -45,7 +45,7 @@
 
         } 
         else {
-            $newid = $numberOfRows + 1;
+            $newid = $numberOfRows;// + 1;
             $mtable .= "<table align='center' border='1' cellpadding='40' width='1000'>";
 
             while ($mArray = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
