@@ -1,12 +1,13 @@
 <?php
 	require_once("support.php");
+	require_once("dbLogin.php");
 	session_start();
-	$host = "localhost";
-    $user = "root";
-    $password = "";
-    $database = "groupproject";
-	/* Connecting to the database */		
-	$db_connection = new mysqli($host, $user, $password, $database);
+//	$host = "localhost";
+//    $user = "root";
+//    $password = "";
+//    $database = "groupproject";
+//	/* Connecting to the database */		
+	$db_connection = connectToDB($host, $user, $password, $database);//new mysqli($host, $user, $password, $database);
 	if ($db_connection->connect_error) {
 		die($db_connection->connect_error);
 	}
@@ -38,7 +39,7 @@
 		} 
 		if ($body == "") {
 			$_SESSION["username"] = $nameValue;
-            header("Location: mainclassselection.php");
+            header("Location: mainClassSelection.php");
 		}
 	} else {
 		$nameValue = "";
@@ -62,7 +63,7 @@
 EOBODY;
 	$body = $topPart.$body;
 	
-	$page = generatePage($body);
+	$page = generatePageMac($body,NULL,"login.css");
 	echo $page;
-	session_destroy();
+	//session_destroy();
 ?>

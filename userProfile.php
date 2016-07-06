@@ -190,7 +190,7 @@
 //		echo $page;	
 //	}
 	
-	session_destroy();
+	//session_destroy();
 	$page = generatePageWithTop($body);
 		echo $page;
 	exit();     

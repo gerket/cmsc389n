@@ -38,7 +38,7 @@ EOPAGE;
 
 function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheetName="") {
     global $host, $user, $password, $database;
-    session_start();
+    //session_start();
     
     $db = connectToDB($host, $user, $password, $database);
 	
@@ -68,9 +68,13 @@ function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheet
 			if ($num_rows === 0) {
 				$body .= "You Are Not Registered In The DB!!<br />";
 			} else {
-				
+				//style="width:500px;height:228px;">
 				//left side message board button
-				$body.="<img alt='Students Connect' src='books.jpg' height=100px width=100px onclick='window.location.href='mainClassSelection.php';' />";
+				$body.="<img alt='Students Connect' src='books.jpg' height=80px  onclick='window.location.href=\"mainClassSelection.php\";' />";
+				
+				
+				
+				
 				//$body.="<div align='center'>$title</div>";
 				//right hand table with username and logout and pic
 				$body .= "<table align='right'><tbody>";
@@ -78,22 +82,24 @@ function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheet
 					$result->data_seek($row_index);
 					$row = $result->fetch_array(MYSQLI_ASSOC);
                     $pic = $row['pic'];
-                    
+                    $realPic = base64_encode($pic);
                     	
-					$body.= "<tr><td rowspan=2><img alt='User Image' height=60px width=60px src=\"data:image/jpeg;base64,'.base64_encode($pic).'\"/></td><td>Welcome, <a href='userProfile.php'>$student</a>!</td></tr>";
-                    $body.= "<tr><td align='center'><button value='Log out' >Log out</button></td></tr>";
+					$body.= "<tr><td rowspan=2><img alt='User Image' height=80px  src=\"data:image/jpeg;base64,$realPic\"/></td><td>Welcome, <a href='userProfile.php'>$student</a>!</td></tr>";
+                    $body.= "<tr><td align='center'><input type='button' value='Log out' onclick='window.location.href=\"login.php\";' /></td></tr>";
 					//echo "Name: {$row['name']}, Id: {$row['id']} <br>";
 				}
 				$body .= "</tbody></table>";
+				
+				$body.="<h2 align='center'>$title</h2>";
 			}
 		}
     
     $page = <<<EOPAGE
             $body <br /><br />
             <hr/>
-            $bodyBottom
+            <center>$bodyBottom</center>
 EOPAGE;
-    session_destroy();
+    //session_destroy();
 	
 	if ($styleSheetName === "")
 		return generatePage($page,$title);

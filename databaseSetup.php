@@ -32,9 +32,12 @@
 	$sqlQuery = "create table users (username varchar(25), firstname varchar(25), lastname varchar(25), bio text, pic longblob, password varchar(25))";
 	echo mysqli_query($db, $sqlQuery);
 	
+	$sqlQuery = "ALTER TABLE `users` ADD UNIQUE(`username`)";
+	echo mysqli_query($db, $sqlQuery);
+	
 	$sqlQuery = "insert into users values ('gerket', 'Tom', 'Gerke', 'I am a senior in Computer Science!', NULL, 'password')";
 	echo mysqli_query($db, $sqlQuery);
-	echo ": 2 table users<br />";
+	echo ": 3 table users<br />";
 	
 	//classes table creation and initial values
 	$sqlQuery = "create table classes (class varchar(10))";
