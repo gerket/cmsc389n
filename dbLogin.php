@@ -1,7 +1,7 @@
 <?php
 	/* Update based on your database and account info */
-	$host = "localhost";
+	$host = "127.0.0.1";
 	$user = "root";
 	$password = "";
-	$database = "groupproject";
+	$database = "groupProject";
 ?>
