@@ -49,5 +49,5 @@
 	
 	
 	session_destroy();
-	echo generatePageWithTop($body);
+	echo generatePageWithTop($body,,);
 ?>

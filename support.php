@@ -48,16 +48,16 @@ function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheet
 		//$body .= "db connection established";
 	}
     
-    $user="";
+    $student="";
     $body="";
     
-    if (isset($_SESSION['user'])){
-        $user = $_SESSION['user'];
+    if (isset($_SESSION['username'])){
+        $student = $_SESSION['username'];
     } else {
-        $user = "gerket";
+        $student = "gerket";
     }
     
-    $query = "select * from users where username=\"$user\"";
+    $query = "select * from users where username=\"$student\"";
     $result = $db->query($query);
     
     if (!$result) {
@@ -68,6 +68,11 @@ function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheet
 			if ($num_rows === 0) {
 				$body .= "You Are Not Registered In The DB!!<br />";
 			} else {
+				
+				//left side message board button
+				$body.="<img alt='Students Connect' src='books.jpg' height=100px width=100px onclick='window.location.href='mainClassSelection.php';' />";
+				//$body.="<div align='center'>$title</div>";
+				//right hand table with username and logout and pic
 				$body .= "<table align='right'><tbody>";
 				for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 					$result->data_seek($row_index);
@@ -75,7 +80,7 @@ function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheet
                     $pic = $row['pic'];
                     
                     	
-					$body.= "<tr><td rowspan=2><img alt='User Image' height=60px width=60px src=\"data:image/jpeg;base64,'.base64_encode($pic).'\"/></td><td>Welcome, $user!</td></tr>";
+					$body.= "<tr><td rowspan=2><img alt='User Image' height=60px width=60px src=\"data:image/jpeg;base64,'.base64_encode($pic).'\"/></td><td>Welcome, <a href='userProfile.php'>$student</a>!</td></tr>";
                     $body.= "<tr><td align='center'><button value='Log out' >Log out</button></td></tr>";
 					//echo "Name: {$row['name']}, Id: {$row['id']} <br>";
 				}
@@ -84,7 +89,7 @@ function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheet
 		}
     
     $page = <<<EOPAGE
-            $body <br /><br /><br /><br />
+            $body <br /><br />
             <hr/>
             $bodyBottom
 EOPAGE;
