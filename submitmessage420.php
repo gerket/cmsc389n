@@ -12,7 +12,7 @@
 
             <h3><strong>Message successfully posted! </strong></h3>
 
-			<p id = "backbutton"> <input type=button onClick="parent.location='CMSC389N.php'" value='Back To Class Page'> </p>
+			<p id = "backbutton"> <input type=button onClick="parent.location='CMSC420.php'" value='Back To Class Page'> </p>
 		</form>		
 EOBODY;
 
