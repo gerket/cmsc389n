@@ -1,6 +1,5 @@
 <?php
 
-
 function generatePage($body, $title="Students Connect") {
     $page = <<<EOPAGE
 <!doctype html>
@@ -38,10 +37,10 @@ EOPAGE;
 
 
 function generatePageWithTop($bodyBottom, $title="Students Connect", $styleSheetName="") {
-    require("dbLogin.php");
+    global $host, $user, $password, $database;
     session_start();
     
-    $db = new mysqli($host, $user, $password, $database);
+    $db = connectToDB($host, $user, $password, $database);
 	
 	if ($db->connect_error) {
 		die($db->connect_error);

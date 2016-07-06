@@ -1,9 +1,10 @@
 <?php
+	require_once("dbLogin.php");
 	require_once("support.php");
-	require_once ("dbLogin.php");
+	
 	session_start();
 	
-	$db = new mysqli($host, $user, $password, $database);
+	$db = connectToDB($host, $user, $password, $database);
 	$body = "";
 	
 	if ($db->connect_error) {
@@ -12,15 +13,15 @@
 		//$body .= "db connection established";
 	}
 	
-	$user;
+	$student;
 	
-	if( isset($_SESSION["user"]) ){
-		$user = $_SESSION["user"];
+	if( isset($_SESSION["username"]) ){
+		$student = $_SESSION["username"];
 	} else {
-		$user = "gerket";
+		$student = "gerket";
 	}
 		
-		$query = sprintf("select * from userclasses where username='%s'", $user);
+		$query = sprintf("select * from userclasses where username='%s'", $student);
 		$result = $db->query($query);
 		
 		
