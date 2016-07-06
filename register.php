@@ -48,12 +48,13 @@
                         </select>
                     <br />
                     <h3>Bio</h3>
-                    <textarea name="bio" id="bio" style="height:100px; width:500px"></textarea>
-                   
-                </div><br />
+                    <textarea name="bio" id="bio" style="height:100px; width:500px"></textarea><br />
+<!--					<strong>Profile Picture: <input type="file" name="pic" size="25" />
+-->                </div><br />
                 <div id="submission">
                     <input type="reset" value="Clear Form" />
                     <input type="submit" value="Submit Form" />
+					<input type="button" value="Back to Login" onclick='window.location.href="login.php";' />
                 </div>
             </form>
         

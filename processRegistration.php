@@ -15,6 +15,9 @@
     $lastname = trim($_POST['lastname']);
     $username = trim($_POST['uname']);
     $bio = $_POST['bio'];
+//	$imagename=$_POST["pic"]["name"]; 
+//    $pic=addslashes (file_get_contents($_POST['pic']['tmp_name']));
+	//$pic = $_POST['pic'];
 
      // need 2 queries for userclasses and users
      foreach ($_POST['classType'] as $key){
@@ -25,14 +28,18 @@
             die("Insertion failed: " . $db_connection->error);
         }    
     }
-    $query2 = "insert into users values(\"".($username).("\", \"").($firstname).("\", \"").($lastname).("\", \"").($bio).("\", null, \"").($password).("\")");
+    $query2 = "insert into users values(\"".($username).("\", \"").($firstname).("\", \"").($lastname).("\", \"").($bio).("\", NULL, \"").($password).("\")");
     $result2 = $db_connection->query($query2);
+	
+	//$query3 = sprintf("update users set pic='%s' where username='%s'",$pic,$username);
+	//$result3 = $db_connection->query($query3);
+	
     if (!$result2) {
         die("Insertion failed: " . $db_connection->error);
     } else {
         print "here";
-        $_SESSION['user'] = $username;
-        header("Location: login.php");
+        $_SESSION['username'] = $username;
+        header("Location: mainClassSelection.php");
     }
-    session_destroy();
+    //session_destroy();
 ?>
