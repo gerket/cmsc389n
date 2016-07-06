@@ -1,33 +1,38 @@
-<!doctype html>
-<html>
-    <head> 
-        <meta charset=UTF-8" /> 
-		<title>CMSC420</title>
-        <link rel="stylesheet" href="classPage.css" />
-		<script src="classPage.js"></script>
-	</head>
-</html>
+
 
 <?php
     require_once("support.php");
+	require_once("dbLogin.php");
     session_start();
-
+	
+	
+	
+	$styleSheet = "classPage.css";
     $body = "";
     $mtable = "";
     $newid;
 
-    $host = "127.0.0.1";
-    $user = "root";
-    $password = "";
-    $database = "groupproject";
+	if(isset($_SESSION['currClass'])){
+		$title = $_SESSION['currClass'];
+	} else {
+		$title = "CMSC420";
+	}
+	
+	//if(isset($_SESSION['username'])){
+		$username = $_SESSION['username'];
+
+    //$host = "127.0.0.1";
+    //$user = "root";
+    //$password = "";
+    //$database = "groupproject";
 
     $db = connectToDB($host, $user, $password, $database);
 
-    $query = "select * from messages where class = 'CMSC420'"; 
-    $q2 = "select * from users"; 
+    $query = "select * from messages where class = '$title'"; 
+    
 
     $result = $db->query($query);
-    $r2 = $db->query($q2);
+   
 
     if (!$result) {
         die("Retrieval failed: ". $db->error);
@@ -36,7 +41,8 @@
         $numberOfRows = mysqli_num_rows($result);
 
         if ($numberOfRows == 0) {
-            $body .= "<h2>No messages in this discussion</h2>";
+            $mtable = "<h2>No messages in this discussion</h2>";
+
         } 
         else {
             $newid = $numberOfRows + 1;
@@ -44,12 +50,19 @@
 
             while ($mArray = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 $id = $mArray['id'];
-                $username = $mArray['username'];
+                $usernameM = $mArray['username'];
                 $message = $mArray['message'];
-
-                $mtable .= "<tr><td><br/><br/>#$id $username<br/><br/><br/></td> <td><br/><br/>$message<br/><br/><br/></td></tr>"; //profile pic?????
+				
+				$q2 = "select username,pic from users where username='$usernameM'";
+				$r2 = $db->query($q2);
+				$row = $r2->fetch_array(MYSQLI_ASSOC);
+                $pic = $row['pic'];
+                $realPic = base64_encode($pic);
+				
+				$mtable.="<tr ><td align='center'>Message #$id<br/><br/>";
+				$mtable.= "<table><tr><td numrows=2><img alt='User Image' height=80px  src=\"data:image/jpeg;base64,$realPic\"/></td>";
+                $mtable .= " <td>$usernameM</td></tr></table></td>" . "<td align='center'><br/>$message<br/></td></tr>"; 
             }
-
             $mtable .= "</table>";
         }
     }
@@ -57,15 +70,9 @@
     $result->close();
 
 
-
-
-
-
-
-
     if(isset($_POST["submitbutton"])) {
-        $curruser = "joe";//$_SESSION['username']; may need to change based on what the session var is actually stored as 
-        $currclass = "CMSC420";
+        $curruser = $_SESSION['username']; //may need to change based on what the session var is actually stored as 
+        $currclass = $title;
         //$ftype = $_FILES['filename']['type'];
 
         $poop = $_POST["yourmessage"];
@@ -91,7 +98,7 @@
 
 
 
-        header("Location: submitmessage420.php");
+        header("Location: submitmessage389N.php");
     } 
     else {
         $themessage = "";
@@ -101,7 +108,7 @@
     $scriptName = $_SERVER["PHP_SELF"];
     $topPart = <<<EOBODY
         <form action="$scriptName" method="post">
-            <h1><u>CMSC420</u></h1> 
+            <h1><u>$title</u></h1> 
             <br/>
 
             $mtable
@@ -121,7 +128,7 @@ EOBODY;
 
     $body = $topPart.$body; 
     
-    $page = generatePage($body);
+    $page = generatePageWithTop($body,$title,$styleSheet);
 
     echo $page;        
 ?>

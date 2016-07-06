@@ -31,8 +31,7 @@
         die("Insertion failed: " . $db_connection->error);
     } else {
         print "here";
-        $_SESSION['user'] = $username;
-        header("Location: login.php");
+        $_SESSION['username'] = $username;
+        header("Location: mainClassSelection.php");
     }
-    session_destroy();
 ?>
