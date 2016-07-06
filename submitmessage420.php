@@ -7,7 +7,7 @@
 	$scriptName = $_SERVER["PHP_SELF"];
 	$topPart = <<<EOBODY
 		<form action="$scriptName" method="post">
-			<h1><u>CMSC389N</u></h1> 
+			<h1><u>CMSC420</u></h1> 
             <br/>
 
             <h3><strong>Message successfully posted! </strong></h3>
